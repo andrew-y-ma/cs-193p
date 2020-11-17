@@ -5,14 +5,14 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        return HStack {
+        return HStack() {
             ForEach(viewModel.cards) {card in
                 CardView(card: card).onTapGesture { viewModel.choose(card: card)
                 }
             }
             
         }
-            .foregroundColor(.orange)
+        .foregroundColor(.orange)
             .padding()
         
             
@@ -25,19 +25,38 @@ struct CardView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack{
-                if card.isFaceUp {
-                    RoundedRectangle(cornerRadius: 10.0).fill(Color.white)
-                    RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 3.0)
-                    Text(card.content)
-                } else {
-                    RoundedRectangle(cornerRadius: 10.0).fill()
+            VStack(alignment: .center) {
+                Spacer()
+                ZStack{
+                    if card.isFaceUp {
+                        RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
+                        RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
+                        Text(card.content)
+                    } else {
+                        RoundedRectangle(cornerRadius: cornerRadius).fill()
+                    }
                 }
-            }
-            .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.75 ))
-            .aspectRatio(0.66, contentMode: .fit)
-            
+                .font(Font.system(size: fontSize(for: geometry.size) * fontScaleFactor ))
+                .aspectRatio(aspectRatio, contentMode: .fit)
+                Spacer()
+            }.frame(minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading)
         }
+        
+    }
+    
+    // MARK: - Drawing Constants
+    
+    let cornerRadius: CGFloat = 10
+    let edgeLineWidth: CGFloat = 3
+    let fontScaleFactor: CGFloat = 0.75
+    let aspectRatio: CGFloat = 0.66
+    
+    func fontSize(for size: CGSize) -> CGFloat {
+        min(size.width, size.height) * 0.75
     }
 }
 
