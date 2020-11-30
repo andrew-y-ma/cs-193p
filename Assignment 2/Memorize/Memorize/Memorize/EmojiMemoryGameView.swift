@@ -7,17 +7,16 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack {
             
-            Text(EmojiMemoryGame.theme!.name)
+            Text(viewModel.theme.name)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()
             Grid(viewModel.cards) { card in
-                CardView(card: card).onTapGesture {
+                CardView(card: card, gradient: viewModel.gradient!).onTapGesture {
                     viewModel.choose(card: card)
                 }
-                .padding(5)
+                    .padding(5)
             }
-//                .foregroundColor(EmojiMemoryGame.theme?.color)
                 .padding()
             HStack {
                 Text("Score: " + String(viewModel.score))
@@ -27,7 +26,7 @@ struct EmojiMemoryGameView: View {
                     .padding()
                     .foregroundColor(.black)
             }
-            .padding()
+                .padding()
         }
     }
     
@@ -36,6 +35,7 @@ struct EmojiMemoryGameView: View {
 
 struct CardView: View {
     var card: MemoryGame<String>.Card
+    var gradient: LinearGradient
     
     var body: some View {
         GeometryReader { geometry in
@@ -45,16 +45,16 @@ struct CardView: View {
                     if card.isFaceUp {
                         RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
                         RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
-                            .fill(EmojiMemoryGame.theme!.color)
+                            .fill(gradient)
                         Text(card.content)
                     } else {
                         if !card.isMatched {
-                            RoundedRectangle(cornerRadius: cornerRadius).fill(EmojiMemoryGame.theme!.color)
+                            RoundedRectangle(cornerRadius: cornerRadius).fill(gradient)
                         }
                     }
                 }
-                .font(Font.system(size: fontSize(for: geometry.size) * fontScaleFactor ))
-                .aspectRatio(aspectRatio, contentMode: .fit)
+                    .font(Font.system(size: fontSize(for: geometry.size) * fontScaleFactor ))
+                    .aspectRatio(aspectRatio, contentMode: .fit)
                 Spacer()
             }.frame(minWidth: 0,
                     maxWidth: .infinity,
