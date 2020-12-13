@@ -1,7 +1,27 @@
 import SwiftUI
 
+let screenRect = UIScreen.main.bounds
+let screenWidth = screenRect.size.width
+let screenHeight = screenRect.size.height
+
 struct SetGameView: View {
     @ObservedObject var viewModel: SetGame
+    @State private var isShowingCards = true
+    
+    private func getRandomOffset() -> CGSize{
+        let plusOrMinus : CGFloat = Double.random(in: 0...1) < 0.5 ? -1 : 1
+        let sideOfScreen = Double.random(in: 0...1) < 0.5 ? true : false
+        
+        if sideOfScreen {
+            let widthOffset = plusOrMinus * (screenWidth + CGFloat(100))
+            let heightOffset = CGFloat.random(in: 0...screenHeight)
+            return CGSize(width: widthOffset, height: heightOffset)
+        } else {
+            let widthOffset = CGFloat.random(in: 0...screenWidth)
+            let heightOffset = plusOrMinus * (screenHeight + CGFloat(100))
+            return CGSize(width: widthOffset, height: heightOffset)
+        }
+    }
     
     var body: some View {
         VStack {
@@ -10,19 +30,25 @@ struct SetGameView: View {
                 .fontWeight(.bold)
                 .padding()
             Grid(viewModel.cardsInHand) { card in
-                CardView(card: card).onTapGesture {
+                return CardView(card: card).onTapGesture {
                     withAnimation(.linear(duration:0.75)) {
                         viewModel.choose(card: card)
                     }
                 }
                 .padding(2)
                 .foregroundColor(Color.green)
-
+                .transition(.offset(getRandomOffset()))
             }
                 .padding()
             
             HStack {
-                Button("New Game", action: viewModel.refreshGame)
+                Button("New Game") {
+                    viewModel.refreshGame()
+                    withAnimation {
+                        isShowingCards.toggle()
+                        isShowingCards.toggle()
+                    }
+                }
                 Spacer()
                 Button("Deal Cards", action: viewModel.dealThreeCards)
             }
@@ -35,9 +61,42 @@ struct SetGameView: View {
 struct CardView: View {
     var card: CardGame.Card
     
+    @State private var cardOffset: CGSize = CGSize(width: 0, height: 0)
+    
+    private func startFlyingOnScreen() {
+        cardOffset = getRandomOffset()
+
+        withAnimation(.linear(duration: 2)){
+            cardOffset = CGSize(width: 0, height: 0)
+        }
+    }
+    
+    private func startFlyingOffScreen() {
+        cardOffset = CGSize(width: 0, height: 0)
+
+        withAnimation(.linear(duration: 2)){
+            cardOffset = getRandomOffset()
+        }
+    }
+    
+    private func getRandomOffset() -> CGSize{
+        let plusOrMinus : CGFloat = Double.random(in: 0...1) < 0.5 ? -1 : 1
+        let sideOfScreen = Double.random(in: 0...1) < 0.5 ? true : false
+        
+        if sideOfScreen {
+            let widthOffset = plusOrMinus * (screenWidth + CGFloat(100))
+            let heightOffset = CGFloat.random(in: 0...screenHeight)
+            return CGSize(width: widthOffset, height: heightOffset)
+        } else {
+            let widthOffset = CGFloat.random(in: 0...screenWidth)
+            let heightOffset = plusOrMinus * (screenHeight + CGFloat(100))
+            return CGSize(width: widthOffset, height: heightOffset)
+        }
+    }
+    
     var body: some View {
         GeometryReader { geometry in
-            ZStack{
+            ZStack {
                 if card.isFaceUp {
                     RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
                     RoundedRectangle(cornerRadius: cornerRadius)
@@ -69,11 +128,11 @@ struct CardView: View {
                                         .stroke(lineWidth: shapeLineWidth).fill(card.colour)
                                         .padding(geometry.size.width * 0.02)
                                 } else {
-                                    Circle()
+                                    Diamond()
                                         .foregroundColor(card.colour)
                                         .opacity(card.opacity)
                                         .padding(geometry.size.width * 0.02)
-                                    Circle()
+                                    Diamond()
                                         .stroke(lineWidth: shapeLineWidth).fill(card.colour)
                                         .padding(geometry.size.width * 0.02)
                                 }
@@ -90,9 +149,15 @@ struct CardView: View {
             }
                 .font(Font.system(size: fontSize(for: geometry.size) * fontScaleFactor ))
                 .aspectRatio(aspectRatio, contentMode: .fit)
+                .transition(.offset(getRandomOffset()))
+                .offset(cardOffset)
+                .onAppear {
+                    startFlyingOnScreen()
+                }
             
         }
     }
+
     
     let cornerRadius: CGFloat = 10
     let pillRadius: CGFloat = 25

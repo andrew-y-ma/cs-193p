@@ -103,7 +103,6 @@ struct CardGame/*<CardContent> where CardContent: Equatable */ {
 
                     cards[chosenIndex].isFaceUp = true
                 } else if potentialMatchIndices.count == 3 {
-                    print(potentialMatchIndices)
                     if cards[potentialMatchIndices[0]].isMatched && !potentialMatchIndices.contains(chosenIndex){
                         for index in potentialMatchIndices {
                             cards[index].wasMatched = true
@@ -126,10 +125,6 @@ struct CardGame/*<CardContent> where CardContent: Equatable */ {
                 indicesOfFaceUpCards = [chosenIndex]
             }
         }
-    }
-    
-    private func clearCardsMatched(){
-        
     }
     
     struct Card: Identifiable {

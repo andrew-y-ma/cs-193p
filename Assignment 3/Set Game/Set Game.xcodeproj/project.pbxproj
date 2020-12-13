@@ -14,6 +14,7 @@
 		49092CD9257C241F00B6F4AD /* CardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49092CD8257C241F00B6F4AD /* CardGame.swift */; };
 		49092CDC257C3A8D00B6F4AD /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49092CDB257C3A8D00B6F4AD /* SetGame.swift */; };
 		49092CDF257C418D00B6F4AD /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49092CDE257C418D00B6F4AD /* Array+Identifiable.swift */; };
+		496A6296258582E90016E51E /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496A6295258582E90016E51E /* Diamond.swift */; };
 		49F2D311257F2FBC00A5E9DD /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2D310257F2FBC00A5E9DD /* Grid.swift */; };
 		49F2D314257F2FDD00A5E9DD /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F2D313257F2FDD00A5E9DD /* GridLayout.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		49092CD8257C241F00B6F4AD /* CardGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGame.swift; sourceTree = "<group>"; };
 		49092CDB257C3A8D00B6F4AD /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		49092CDE257C418D00B6F4AD /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		496A6295258582E90016E51E /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		49F2D310257F2FBC00A5E9DD /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		49F2D313257F2FDD00A5E9DD /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +67,7 @@
 				49092CC7257BFEFA00B6F4AD /* Set_GameApp.swift */,
 				49092CDE257C418D00B6F4AD /* Array+Identifiable.swift */,
 				49092CD8257C241F00B6F4AD /* CardGame.swift */,
+				496A6295258582E90016E51E /* Diamond.swift */,
 				49F2D310257F2FBC00A5E9DD /* Grid.swift */,
 				49F2D313257F2FDD00A5E9DD /* GridLayout.swift */,
 				49092CDB257C3A8D00B6F4AD /* SetGame.swift */,
@@ -157,6 +160,7 @@
 				49092CCA257BFEFA00B6F4AD /* SetGameView.swift in Sources */,
 				49092CC8257BFEFA00B6F4AD /* Set_GameApp.swift in Sources */,
 				49092CDC257C3A8D00B6F4AD /* SetGame.swift in Sources */,
+				496A6296258582E90016E51E /* Diamond.swift in Sources */,
 				49092CD9257C241F00B6F4AD /* CardGame.swift in Sources */,
 				49F2D314257F2FDD00A5E9DD /* GridLayout.swift in Sources */,
 				49F2D311257F2FBC00A5E9DD /* Grid.swift in Sources */,
