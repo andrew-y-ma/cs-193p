@@ -162,13 +162,15 @@ struct EmojiArtDocumentView: View {
         if selectedEmotes.isEmpty {
             location = CGPoint(x: location.x * zoomScale, y: location.y * zoomScale)
         } else {
-            location = CGPoint(x: location.x * steadyStateZoomScale, y: location.y * steadyStateZoomScale)
+            location = CGPoint(x: location.x * steadyStateZoomScale , y: location.y * steadyStateZoomScale)
         }
         location = CGPoint(x: location.x + size.width/2, y: location.y + size.height/2)
         if selectedEmotes.contains(emoji) {
-            location = CGPoint(x: location.x + panOffset.width + emojiGesturePanOffset.width * zoomScale, y: location.y + panOffset.height + emojiGesturePanOffset.height * zoomScale)
+            location = CGPoint(x: location.x + panOffset.width / gestureZoomScale + (emojiGesturePanOffset.width * zoomScale), y: location.y + panOffset.height / gestureZoomScale + (emojiGesturePanOffset.height * zoomScale))
+            print(emojiGesturePanOffset)
+            print(panOffset)
         } else {
-            location = CGPoint(x: location.x + panOffset.width, y: location.y + panOffset.height)
+            location = CGPoint(x: location.x + panOffset.width / gestureZoomScale, y: location.y + panOffset.height / gestureZoomScale)
         }
         return location
     }
