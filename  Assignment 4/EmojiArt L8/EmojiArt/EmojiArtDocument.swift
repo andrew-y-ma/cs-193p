@@ -2,33 +2,44 @@
 //  EmojiArtDocument.swift
 //  EmojiArt
 //
-//  Created by Andrew Ma on 2020-12-13.
+//  Created by CS193p Instructor on 4/27/20.
+//  Copyright © 2020 Stanford University. All rights reserved.
 //
 
 import SwiftUI
 
-class EmojiArtDocument: ObservableObject {
+class EmojiArtDocument: ObservableObject
+{
+    static let palette: String = "⭐️⛈🍎🌏🥨⚾️"
     
-    static let palette: String = "☁️⭐️🍎🌍🥨⚾️"
-    
-    @Published private var emojiArt: EmojiArt {
+    // @Published // workaround for property observer problem with property wrappers
+    private var emojiArt: EmojiArt {
+        willSet {
+            objectWillChange.send()
+        }
         didSet {
             UserDefaults.standard.set(emojiArt.json, forKey: EmojiArtDocument.untitled)
         }
     }
     
-    private static let untitled = "EmojiArtDoucment.Untitled"
+    private static let untitled = "EmojiArtDocument.Untitled"
     
     init() {
         emojiArt = EmojiArt(json: UserDefaults.standard.data(forKey: EmojiArtDocument.untitled)) ?? EmojiArt()
         fetchBackgroundImageData()
     }
-    
+        
     @Published private(set) var backgroundImage: UIImage?
     
     var emojis: [EmojiArt.Emoji] { emojiArt.emojis }
     
     // MARK: - Intent(s)
+    
+    func deleteEmoji(_ emoji: EmojiArt.Emoji) {
+        if let index = emojiArt.emojis.firstIndex(matching: emoji) {
+            emojiArt.emojis.remove(at: index)
+        }
+    }
     
     func addEmoji(_ emoji: String, at location: CGPoint, size: CGFloat) {
         emojiArt.addEmoji(emoji, x: Int(location.x), y: Int(location.y), size: Int(size))
@@ -46,7 +57,7 @@ class EmojiArtDocument: ObservableObject {
             emojiArt.emojis[index].size = Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrEven))
         }
     }
-    
+
     func setBackgroundURL(_ url: URL?) {
         emojiArt.backgroundURL = url?.imageURL
         fetchBackgroundImageData()
@@ -70,5 +81,5 @@ class EmojiArtDocument: ObservableObject {
 
 extension EmojiArt.Emoji {
     var fontSize: CGFloat { CGFloat(self.size) }
-    var location: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y))}
+    var location: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
 }

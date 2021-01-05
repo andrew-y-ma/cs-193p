@@ -2,7 +2,8 @@
 //  EmojiArt.swift
 //  EmojiArt
 //
-//  Created by Andrew Ma on 2020-12-13.
+//  Created by CS193p Instructor on 4/27/20.
+//  Copyright © 2020 Stanford University. All rights reserved.
 //
 
 import Foundation
@@ -11,7 +12,7 @@ struct EmojiArt: Codable {
     var backgroundURL: URL?
     var emojis = [Emoji]()
     
-    struct Emoji: Identifiable, Codable {
+    struct Emoji: Identifiable, Codable, Hashable {
         let text: String
         var x: Int
         var y: Int
@@ -33,13 +34,13 @@ struct EmojiArt: Codable {
     
     init?(json: Data?) {
         if json != nil, let newEmojiArt = try? JSONDecoder().decode(EmojiArt.self, from: json!) {
-            self = newEmojiArt // with value types, can replace all of self with something new
+            self = newEmojiArt
         } else {
             return nil
         }
     }
     
-    init() {}
+    init() { }
     
     private var uniqueEmojiId = 0
     
