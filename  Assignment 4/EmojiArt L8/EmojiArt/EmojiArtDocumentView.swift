@@ -30,14 +30,14 @@ struct EmojiArtDocumentView: View {
                         document.deleteEmoji(emoji)
                     }
                 })
-                .padding()
+                .padding(.horizontal)
             }
             GeometryReader { geometry in
                 ZStack {
                     Color.white.overlay(
                         OptionalImage(uiImage: self.document.backgroundImage)
                             .scaleEffect(selectedEmotes.isEmpty ? self.zoomScale : steadyStateZoomScale)
-                            .offset(self.panOffset)
+                            .offset(selectedEmotes.isEmpty ? self.panOffset : panOffset / gestureZoomScale)
                     )
                         .gesture(doubleTapToZoom(in: geometry.size))
                     ForEach(self.document.emojis) { emoji in
@@ -47,8 +47,8 @@ struct EmojiArtDocumentView: View {
                                 print(selectedEmotes)
                             }
                             .background(selectedEmotes.contains(emoji) ?  Color.blue : Color.clear)
+                            .font(animatableWithSize: selectedEmotes.contains(emoji) || selectedEmotes.isEmpty ? emoji.fontSize * self.zoomScale : emoji.fontSize * steadyStateZoomScale )
                             .position(self.position(for: emoji, in: geometry.size))
-                            .font(animatableWithSize: selectedEmotes.contains(emoji) ? emoji.fontSize * self.zoomScale : selectedEmotes.isEmpty ? emoji.fontSize * self.zoomScale : emoji.fontSize * steadyStateZoomScale )
                             .gesture(panEmojiGesture())
                     }
                 }
@@ -82,7 +82,7 @@ struct EmojiArtDocumentView: View {
     private func zoomGesture() -> some Gesture {
         MagnificationGesture()
             .updating($gestureZoomScale) { latestGestureScale, gestureZoomScale, transaction in
-                    gestureZoomScale = latestGestureScale
+                gestureZoomScale = latestGestureScale
             }
             .onEnded { finalGestureScale in
                 if selectedEmotes.isEmpty {
