@@ -6,18 +6,19 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
+            
             Text(viewModel.theme.name)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()
             Grid(viewModel.cards) { card in
-                CardView(card: card, color: Color(viewModel.theme.color)).onTapGesture {
+                CardView(card: card, gradient: viewModel.gradient!).onTapGesture {
                     withAnimation(.linear(duration:0.75)) {
                         viewModel.choose(card: card)
                     }
                 }
                 .padding(1.5)
-                .foregroundColor(Color(viewModel.theme.color))
+                .foregroundColor(viewModel.theme.accentColor)
 
             }
                 .padding()
@@ -42,7 +43,7 @@ struct EmojiMemoryGameView: View {
 
 struct CardView: View {
     var card: MemoryGame<String>.Card
-    var color: Color
+    var gradient: LinearGradient
     
     @State private var animatedBonusRemaining: Double = 0
     
@@ -74,7 +75,7 @@ struct CardView: View {
                         .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
                         .animation(card.isMatched ? Animation.linear(duration: 1).repeatForever(autoreverses: false ) : .default)
                 }
-                .cardify(isFaceUp: card.isFaceUp, color: color)
+                .cardify(isFaceUp: card.isFaceUp, gradient: gradient)
                 .transition(AnyTransition.scale)
             }
         }.frame(minWidth: 0,

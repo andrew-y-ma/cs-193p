@@ -9,7 +9,6 @@ class EmojiMemoryGame: ObservableObject {
     
     private static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
         let pairsOfCards = theme.noOfPairs ?? Int.random(in: 3...theme.emojis.count)
-        print(String(data: theme.json!, encoding: .utf8)!)
         return MemoryGame<String>(numberOfPairsOfCards: pairsOfCards, theme: theme) {pairIndex in
             return theme.emojis[pairIndex]
         }
@@ -26,6 +25,10 @@ class EmojiMemoryGame: ObservableObject {
     
     var theme: Theme {
         model.theme
+    }
+    
+    var gradient: LinearGradient? {
+        LinearGradient(gradient: Gradient(colors: [theme.color, theme.accentColor]), startPoint: .top, endPoint: .bottom)
     }
     
     // MARK: - Intent(s)

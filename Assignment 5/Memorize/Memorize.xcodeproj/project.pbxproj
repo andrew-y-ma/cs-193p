@@ -20,7 +20,6 @@
 		49DE1C12257356770090C430 /* Array+Only.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DE1C11257356770090C430 /* Array+Only.swift */; };
 		49F4B165257738F60042DBD9 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F4B164257738F60042DBD9 /* Pie.swift */; };
 		49F4B169257741A50042DBD9 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F4B168257741A50042DBD9 /* Cardify.swift */; };
-		4A89C30925A4E6D5006FFED2 /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A89C30825A4E6D5006FFED2 /* UIColor+RGBA.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		49DE1C11257356770090C430 /* Array+Only.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Only.swift"; sourceTree = "<group>"; };
 		49F4B164257738F60042DBD9 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		49F4B168257741A50042DBD9 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
-		4A89C30825A4E6D5006FFED2 /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +81,6 @@
 				4935232E255C56B4002F80E6 /* MemoryGame.swift */,
 				49F4B164257738F60042DBD9 /* Pie.swift */,
 				4991533E256363D6003FEF39 /* Themes.swift */,
-				4A89C30825A4E6D5006FFED2 /* UIColor+RGBA.swift */,
 				4914DAA525583B6700D4E656 /* Assets.xcassets */,
 				4914DAAA25583B6700D4E656 /* Info.plist */,
 				4914DAA725583B6700D4E656 /* Preview Content */,
@@ -169,7 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				49F4B165257738F60042DBD9 /* Pie.swift in Sources */,
-				4A89C30925A4E6D5006FFED2 /* UIColor+RGBA.swift in Sources */,
 				49F4B169257741A50042DBD9 /* Cardify.swift in Sources */,
 				4935232F255C56B4002F80E6 /* MemoryGame.swift in Sources */,
 				4914DAA425583B6700D4E656 /* EmojiMemoryGameView.swift in Sources */,
