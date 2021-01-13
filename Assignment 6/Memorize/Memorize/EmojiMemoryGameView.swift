@@ -98,7 +98,7 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = EmojiMemoryGame()
+        let game = EmojiMemoryGame(theme: Theme(name: "default", emojis: ["😃"], color: UIColor.RGB(red: 11, green: 10, blue: 5, alpha: 6), noOfPairs: 1))
         game.choose(card: game.cards[0])
         return EmojiMemoryGameView(viewModel: game)
     }

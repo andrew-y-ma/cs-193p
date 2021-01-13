@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Theme: Codable {
+struct Theme: Codable, Equatable, Hashable {
     var name: String
     var emojis: [String]
     var color: UIColor.RGB
@@ -8,6 +8,20 @@ struct Theme: Codable {
     
     var json: Data? {
         return try? JSONEncoder().encode(self)
+    }
+    
+    mutating func addEmojis(_ emojis: String) {
+        for emoji in emojis {
+            if !self.emojis.contains(String(emoji)) {
+                self.emojis.append(String(emoji))
+            }
+        }
+    }
+    
+    mutating func removeEmoji(_ emoji: String) {
+        if let index = emojis.firstIndex(of: emoji) {
+            emojis.remove(at: index)
+        }
     }
 }
 

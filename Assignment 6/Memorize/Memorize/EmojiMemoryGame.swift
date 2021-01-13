@@ -5,7 +5,8 @@ func createCardcontent(pairIndex: Int) -> String {
 }
 
 class EmojiMemoryGame: ObservableObject {
-    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame(theme: themes[Int.random(in: 0..<themes.count)])
+    @Published private var model: MemoryGame<String>
+        //= EmojiMemoryGame.createMemoryGame(theme: themes[Int.random(in: 0..<themes.count)])
     
     private static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
         let pairsOfCards = theme.noOfPairs ?? Int.random(in: 3...theme.emojis.count)
@@ -13,8 +14,12 @@ class EmojiMemoryGame: ObservableObject {
         return MemoryGame<String>(numberOfPairsOfCards: pairsOfCards, theme: theme) {pairIndex in
             return theme.emojis[pairIndex]
         }
-
     }
+    
+    init(theme: Theme) {
+        model = EmojiMemoryGame.createMemoryGame(theme: theme)
+    }
+    
     // MARK: - Access to the Model
     var cards: Array<MemoryGame<String>.Card> {
         model.cards
@@ -34,6 +39,6 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     func refreshGame() {
-        model = EmojiMemoryGame.createMemoryGame(theme: themes[Int.random(in: 0..<themes.count)])
+        model = EmojiMemoryGame.createMemoryGame(theme: self.theme)
     }
 }

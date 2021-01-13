@@ -19,7 +19,7 @@ struct Grid<Item, ID, ItemView>: View where ID: Hashable, ItemView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            self.body(for: GridLayout(itemCount: self.items.count, in: geometry.size))   
+            self.body(for: GridLayout(itemCount: self.items.count, in: geometry.size))
         }
     }
     
@@ -40,6 +40,3 @@ struct Grid<Item, ID, ItemView>: View where ID: Hashable, ItemView: View {
         }
     }
 }
-
-
- 
